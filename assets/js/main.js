@@ -7,13 +7,15 @@ const gridElement = document.querySelector('.grid');
 const cells = 5;
 const maxNumber = 10
 const arrayNumber = randomNumberArray(1, maxNumber);
-console.log(arrayNumber);
-
+console.log(arrayNumber, 'random number array');
+let arrayNumberUser = [];
+console.log(arrayNumberUser, 'user array');
 
 gridElement.innerHTML= '';
-generateGrid(gridElement, cells, maxNumber);
-
+generateGrid(gridElement, cells, arrayNumber);
 const numbers = gridElement.innerText;
+
+
 
 
 // uso un bottone per generare le caselle
@@ -23,9 +25,12 @@ const numbers = gridElement.innerText;
 /* generate.addEventListener('click', function () { */
 /* } ) */
 
-/* let seconds = 3
+// dopo 30 secondi i numeri scompaiono
+let seconds = 3
 const intervalId = setInterval(countdown, 1000)
 
+let numeriGiusti = [];
+console.log(numeriGiusti, 'array giusti');
 function countdown() {
       document.querySelector('.counter').innerText = seconds;
       if (seconds == 0){
@@ -33,30 +38,39 @@ function countdown() {
             gridElement.innerHTML = '';
             for (let i = 0; i < 5; i++) {
                   const numberUser = Number(prompt('scegli un numero'));
-                  arrayNumberUser.push(numberUser)
+                  arrayNumberUser.push(numberUser);
             }
+            numberCheck(numeriGiusti);
+            
       } else {
             seconds--
-      }
-} */
-
-
-// dopo 30 secondi i numeri scompaiono
-
-
-// creo gli elementi nei quali voglio inserire i numeri
-// creo gli elementi della DOM con una funzione e gli inserisco i numeri
-function generateGrid (where, howMany, /* numberChoice */){
-      for (let i = 0; i < howMany; i++) {
-            const cellElement = document.createElement('div');
-            cellElement.className = 'cell';
-            const arrayEl = arrayNumber[i];
-            cellElement.innerText = arrayEl;
-            where.append(cellElement);    
       }
 }
 
 
+function numberCheck (numeriGiusti){
+      for (let i = 0; i < arrayNumberUser.length; i++) {
+            const singleNumb = arrayNumberUser[i];
+            if (arrayNumber.includes(singleNumb)){
+                  numeriGiusti.push(singleNumb);
+                  console.log(singleNumb, 'azzeccato!');
+            } else {
+                  console.log(singleNumb, 'no');
+            }
+            
+      }
+}
+// creo gli elementi nei quali voglio inserire i numeri
+// creo gli elementi della DOM con una funzione e gli inserisco i numeri
+function generateGrid (where, howMany, singleNumb){
+      for (let i = 0; i < howMany; i++) {
+            const cellElement = document.createElement('div');
+            cellElement.className = 'cell';
+            const arrayEl = singleNumb[i];
+            cellElement.innerText = arrayEl;
+            where.append(cellElement);    
+      }
+}
 
 function randomNumberArray(min, max) {
       const arrayNumber = [];
