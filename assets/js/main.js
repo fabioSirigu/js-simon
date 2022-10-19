@@ -24,7 +24,7 @@ function generateGrid (where, howMany, singleNumb){
       }
 }
 
-let seconds = 3;
+let seconds = 30;
 const intervalId = setInterval(countdown, 1000)
 function countdown() {
       document.querySelector('.counter').innerText = seconds;
