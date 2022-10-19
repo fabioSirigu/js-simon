@@ -6,25 +6,26 @@
 const gridElement = document.querySelector('.grid');
 const cells = 5;
 const maxNumber = 10
+const arrayNumber = randomNumberArray(1, maxNumber);
+console.log(arrayNumber);
+
+
+gridElement.innerHTML= '';
+generateGrid(gridElement, cells, maxNumber);
+
+const numbers = gridElement.innerText;
+
+
 // uso un bottone per generare le caselle
-const generate = document.querySelector('.generate');
-const cellElement = document.createElement('div');
-cellElement.className = 'cell';
+// const generate = document.querySelector('.generate');
 
 // uso il bottone generate
 /* generate.addEventListener('click', function () { */
-      gridElement.innerHTML= '';
-      generateGrid(gridElement, cells, maxNumber);
-      
-      const numbers = gridElement.innerText;
-      console.log(numbers)
 /* } ) */
 
-let seconds = 3
+/* let seconds = 3
 const intervalId = setInterval(countdown, 1000)
 
-let arrayNumberUser = []
-console.log(arrayNumberUser);
 function countdown() {
       document.querySelector('.counter').innerText = seconds;
       if (seconds == 0){
@@ -32,14 +33,12 @@ function countdown() {
             gridElement.innerHTML = '';
             for (let i = 0; i < 5; i++) {
                   const numberUser = Number(prompt('scegli un numero'));
-                  arrayNumberUser.push(numberUser);
-                  
+                  arrayNumberUser.push(numberUser)
             }
       } else {
             seconds--
       }
-}
-
+} */
 
 
 // dopo 30 secondi i numeri scompaiono
@@ -47,16 +46,27 @@ function countdown() {
 
 // creo gli elementi nei quali voglio inserire i numeri
 // creo gli elementi della DOM con una funzione e gli inserisco i numeri
-function generateGrid (where, howMany, numberChoice){
-      for (let i = 1; i <= howMany; i++) {
+function generateGrid (where, howMany, /* numberChoice */){
+      for (let i = 0; i < howMany; i++) {
             const cellElement = document.createElement('div');
             cellElement.className = 'cell';
-            cellElement.innerText = randomNumber(1, numberChoice)
-            where.append(cellElement);
+            const arrayEl = arrayNumber[i];
+            cellElement.innerText = arrayEl;
+            where.append(cellElement);    
       }
 }
-// - creo una funzione per creare i numeri con math.floor
-function randomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
+
+
+
+function randomNumberArray(min, max) {
+      const arrayNumber = [];
+      while (arrayNumber.length !== 5) {
+          const number = Math.floor(Math.random() * (max - min + 1)) + min;
+          if (!arrayNumber.includes(number)) {
+              arrayNumber.push(number);
+          }
+      }
+      return arrayNumber;
+  }
+
 
