@@ -1,3 +1,18 @@
+body {
+      background-color: palevioletred;
+}
+
+.cell,
+.counter,
+.result {
+      background-color: antiquewhite;
+      border-radius: 1rem;
+}
+
+h1 {
+     color: white;
+     font-weight: bold;
+}
 .cell {
       width: 100px;
       aspect-ratio: 1 / 1;
@@ -19,8 +34,10 @@
 
 .result {
       margin: auto;
-      width: 300px;
+      width: 600px;
       height: 100px;
       border: 1px solid;
-      text-transform: uppercase;
+      line-height: 100px;
+      font-size: 2rem;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
