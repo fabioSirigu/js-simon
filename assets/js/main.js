@@ -12,26 +12,31 @@ const cellElement = document.createElement('div');
 cellElement.className = 'cell';
 
 // uso il bottone generate
-generate.addEventListener('click', function () {
+/* generate.addEventListener('click', function () { */
       gridElement.innerHTML= '';
       generateGrid(gridElement, cells, maxNumber);
       
       const numbers = gridElement.innerText;
       console.log(numbers)
-      let seconds = 30
-      const intervalId = setInterval(countdown, 1000)
-      
-      function countdown() {
-            document.querySelector('.counter').innerText = seconds;
-      
-            if (seconds == 0){
-                  clearInterval(intervalId);
-                  gridElement.innerHTML = ''
-            } else {
-                  seconds--
+/* } ) */
+
+let seconds = 3
+const intervalId = setInterval(countdown, 1000)
+
+function countdown() {
+      document.querySelector('.counter').innerText = seconds;
+
+      if (seconds == 0){
+            clearInterval(intervalId);
+            gridElement.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                  let numberUser = Number(prompt('Scegli un numero da 1 a 10'));
+                  console.log(numberUser);
             }
+      } else {
+            seconds--
       }
-} )
+}
 
 // dopo 30 secondi i numeri scompaiono
 
