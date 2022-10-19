@@ -3,8 +3,8 @@
 const gridElement = document.querySelector('.grid');
 
 const cells = 5;
-const maxNumber = 10
-const arrayNumber = randomNumberArray(1, maxNumber);
+const maxNumber = 100;
+const arrayNumber = randomNumberArray(1, maxNumber, cells);
 console.log(arrayNumber, 'random number array');
 const arrayNumberUser = [];
 console.log(arrayNumberUser, 'user array');
@@ -14,25 +14,32 @@ generateGrid(gridElement, cells, arrayNumber);
 const numbers = gridElement.innerText;
 
 
-// dopo 30 secondi i numeri scompaiono
-let seconds = 30
-const intervalId = setInterval(countdown, 1000)
+function generateGrid (where, howMany, singleNumb){
+      for (let i = 0; i < howMany; i++) {
+            const cellElement = document.createElement('div');
+            cellElement.className = 'cell';
+            const arrayEl = singleNumb[i];
+            cellElement.innerText = arrayEl;
+            where.append(cellElement);    
+      }
+}
 
+let seconds = 3;
+const intervalId = setInterval(countdown, 1000)
 function countdown() {
       document.querySelector('.counter').innerText = seconds;
       if (seconds == 0){
             clearInterval(intervalId);
             gridElement.innerHTML = '';
-            userNumberInsert(arrayNumberUser);
-            numberCheck(arrayNumber, arrayNumberUser);
-            
+            userNumberInsert(arrayNumberUser, cells);
+            numberCheck(arrayNumber, arrayNumberUser);      
       } else {
             seconds--
       }
 }
 
-function userNumberInsert(numeriRandom){
-      for (let i = 0; i < 5; i++) {
+function userNumberInsert(numeriRandom, howMany){
+      for (let i = 0; i < howMany; i++) {
             const numberUser = Number(prompt('scegli un numero'));
             numeriRandom.push(numberUser);
       }
@@ -47,37 +54,30 @@ function numberCheck (numeriRandom, numeriPrompt){
             if (numeriRandom.includes(singleNumb)){
                   numeriGiusti.push(singleNumb);
                   console.log(singleNumb, 'azzeccato!');
-                  if (numeriGiusti.length === 0){
-                        resultElement.innerHTML = `nulla..${numeriGiusti.length} azzeccati..`
-                  } else {
-                        resultElement.innerHTML = `grande! ${numeriGiusti.length} azzeccati! I numeri sono ${numeriGiusti} !`
-            
-                  }
+                  numberCorrect(numeriGiusti, resultElement);
             } else {
                   console.log(singleNumb, 'no');
             }
       }
 }
 
-function generateGrid (where, howMany, singleNumb){
-      for (let i = 0; i < howMany; i++) {
-            const cellElement = document.createElement('div');
-            cellElement.className = 'cell';
-            const arrayEl = singleNumb[i];
-            cellElement.innerText = arrayEl;
-            where.append(cellElement);    
+function numberCorrect(numeriGiusti, result){
+      if (numeriGiusti.length === 0){
+            result.innerHTML = `nulla..${numeriGiusti.length} numeri azzeccati..`
+      } else if (numeriGiusti.length === 1)
+      result.innerHTML = `grande! Ne hai azzeccato ${numeriGiusti.length}! Il numero è ${numeriGiusti}!`
+      else {
+            result.innerHTML = `grande! ${numeriGiusti.length} numeri azzeccati! I numeri sono ${numeriGiusti} !`
       }
 }
 
-function randomNumberArray(min, max) {
+function randomNumberArray(min, max, howMany) {
       const arrayNumber = [];
-      while (arrayNumber.length !== 5) {
-          const number = Math.floor(Math.random() * (max - min + 1)) + min;
-          if (!arrayNumber.includes(number)) {
-              arrayNumber.push(number);
-          }
+      while (arrayNumber.length !== howMany) {
+            const number = Math.floor(Math.random() * (max - min + 1)) + min;
+            if (!arrayNumber.includes(number)) {
+                  arrayNumber.push(number);
+            }
       }
       return arrayNumber;
-  }
-
-
+}
