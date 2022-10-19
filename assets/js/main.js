@@ -23,20 +23,24 @@ cellElement.className = 'cell';
 let seconds = 3
 const intervalId = setInterval(countdown, 1000)
 
+let arrayNumberUser = []
+console.log(arrayNumberUser);
 function countdown() {
       document.querySelector('.counter').innerText = seconds;
-
       if (seconds == 0){
             clearInterval(intervalId);
             gridElement.innerHTML = '';
             for (let i = 0; i < 5; i++) {
-                  let numberUser = Number(prompt('Scegli un numero da 1 a 10'));
-                  console.log(numberUser);
+                  const numberUser = Number(prompt('scegli un numero'));
+                  arrayNumberUser.push(numberUser);
+                  
             }
       } else {
             seconds--
       }
 }
+
+
 
 // dopo 30 secondi i numeri scompaiono
 
