@@ -4,14 +4,13 @@
 
 // - seleziono l'elemento della DOM
 const gridElement = document.querySelector('.grid');
+
 const cells = 5;
 const maxNumber = 10
 const arrayNumber = randomNumberArray(1, maxNumber);
 console.log(arrayNumber, 'random number array');
 const arrayNumberUser = [];
 console.log(arrayNumberUser, 'user array');
-const numeriGiusti = [];
-console.log(numeriGiusti, 'array giusti');
 
 gridElement.innerHTML= '';
 generateGrid(gridElement, cells, arrayNumber);
@@ -37,7 +36,7 @@ function countdown() {
             clearInterval(intervalId);
             gridElement.innerHTML = '';
             userNumberInsert(arrayNumberUser);
-            numberCheck(arrayNumber, numeriGiusti, arrayNumberUser);
+            numberCheck(arrayNumber, arrayNumberUser);
             
       } else {
             seconds--
@@ -51,17 +50,24 @@ function userNumberInsert(numeriRandom){
       }
 }
 
-function numberCheck (numeriRandom, numeriGiusti, numeriPrompt){
+function numberCheck (numeriRandom, numeriPrompt){
+      const numeriGiusti = [];
+      console.log(numeriGiusti, 'numeri giusti!');
+      const resultElement = document.querySelector('.result');
       for (let i = 0; i < numeriPrompt.length; i++) {
-            const singleNumb = numeriPrompt[i];
+            const singleNumb = numeriPrompt[i];     
             if (numeriRandom.includes(singleNumb)){
                   numeriGiusti.push(singleNumb);
                   console.log(singleNumb, 'azzeccato!');
-
+                  if (numeriGiusti.length === 0){
+                        resultElement.innerHTML = `nulla..${numeriGiusti.length} azzeccati..`
+                  } else {
+                        resultElement.innerHTML = `grande! ${numeriGiusti.length} azzeccati! I numeri sono ${numeriGiusti} !`
+            
+                  }
             } else {
                   console.log(singleNumb, 'no');
             }
-            
       }
 }
 // creo gli elementi nei quali voglio inserire i numeri
